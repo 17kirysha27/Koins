@@ -9,12 +9,7 @@ tmp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
 # Get the database list, exclude information_schema
 for db in $(mysql -B -s -u${MYSQL_USER} --password=${MYSQL_PASS} -e 'show databases' | grep -v information_schema)
 do
-  if
-    [[ "${db}" == *"test"* ]] ||
-    [[ "${db}" == *"geo"* ]] ||
-    [[ "${db}" == *"control"* ]] ||
-    [[ "${db}" == *"create"* ]]
-  ; then
+  if [[ "${db}" == *"test"* ]] || [[ "${db}" == *"geo"* ]] || [[ "${db}" == *"control"* ]] || [[ "${db}" == *"create"* ]]; then
     echo "Ignore database: ${db}"
   else
     echo "Dumping database: ${db}"
